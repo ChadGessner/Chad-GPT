@@ -10,11 +10,13 @@ namespace Chad_GPT_Client
         private  HttpClient _client;
         private  string _path;
         private  string _key;
+        private readonly Secrets _secrets;
         public CGPTClient()
         {
             _client = new HttpClient();
             _path = "https://api.openai.com/v1/completions";
-            _key = "Bearer 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";
+            _secrets = new Secrets();
+            _key = _secrets.ChadGPTKey;
         }
         public async Task<Root> PostRequest(string question)
         {
