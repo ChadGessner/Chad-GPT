@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Client", "Chad_GPT_Client\Chad_GPT_Client.csproj", "{192FF836-3034-4E2F-82DF-466215286940}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Console", "..\Chad_GPT_Console\Chad_GPT_Console\Chad_GPT_Console.csproj", "{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chad_GPT_Web_API", "Chad_GPT_Web_API\Chad_GPT_Web_API.csproj", "{510DE05E-F207-4FB3-9E85-EC97B17E04D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chad_GPT_Models", "Chad_GPT_Models\Chad_GPT_Models.csproj", "{BA8BFC1B-7319-4090-A2D3-575CA2017881}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{192FF836-3034-4E2F-82DF-466215286940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{192FF836-3034-4E2F-82DF-466215286940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{192FF836-3034-4E2F-82DF-466215286940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{192FF836-3034-4E2F-82DF-466215286940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{510DE05E-F207-4FB3-9E85-EC97B17E04D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{510DE05E-F207-4FB3-9E85-EC97B17E04D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{510DE05E-F207-4FB3-9E85-EC97B17E04D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{510DE05E-F207-4FB3-9E85-EC97B17E04D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA8BFC1B-7319-4090-A2D3-575CA2017881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA8BFC1B-7319-4090-A2D3-575CA2017881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA8BFC1B-7319-4090-A2D3-575CA2017881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA8BFC1B-7319-4090-A2D3-575CA2017881}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58C5FFB8-9A7F-4F9F-B5F8-49224D2195AC}
+	EndGlobalSection
+EndGlobal
