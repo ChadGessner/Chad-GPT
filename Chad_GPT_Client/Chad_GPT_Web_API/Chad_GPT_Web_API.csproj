@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chad_GPT_Client\Chad_GPT_Client.csproj" />
+    <ProjectReference Include="..\Chad_GPT_Domain\Chad_GPT_Domain.csproj" />
+    <ProjectReference Include="..\Chad_GPT_Models\Chad_GPT_Models.csproj" />
   </ItemGroup>
 
 </Project>
