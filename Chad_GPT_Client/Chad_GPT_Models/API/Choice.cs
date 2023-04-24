@@ -1,4 +1,4 @@
-﻿namespace Chad_GPT_Models
+﻿namespace Chad_GPT_Models.API
 {
     public class Choice
     {

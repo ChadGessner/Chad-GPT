@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using Chad_GPT_Models;
+using Chad_GPT_Models.API;
 using Newtonsoft.Json;
 
 namespace Chad_GPT_Client
@@ -20,6 +20,7 @@ namespace Chad_GPT_Client
         }
         public async Task<Root> PostRequest(string question)
         {
+            
             var x = new
             {
                 Bearer = _key,
@@ -29,7 +30,7 @@ namespace Chad_GPT_Client
                     model = "text-davinci-003",
                     temperature = .7,
                     prompt = "Howdy!",
-                    max_tokens = 7
+                    max_tokens = 100
                 }
             };
 
@@ -41,7 +42,7 @@ namespace Chad_GPT_Client
                 new
                 {
                     
-                    model = "text-davinci-003", temperature = .7, prompt = question, max_tokens = 20 
+                    model = "text-davinci-003", temperature = .7, prompt = question, max_tokens = 200 
                 }) ;
             _client.DefaultRequestHeaders.Add("Authorization", _key);
             var response = await _client.PostAsync(_path, c);
