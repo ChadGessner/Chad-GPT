@@ -16,7 +16,7 @@ namespace Chad_GPT_Web_API.Controllers
         [HttpGet("AskChadGPT/{question}")]
         public KeyValuePair<string, string> AskChadGPT(string question)
         {
-            var request = _client.PostRequest(question);
+            var request = _client.AnswerPrompt(question);
             return new KeyValuePair<string, string>("data", request.Result.choices[0].text);
         }
     }

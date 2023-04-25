@@ -1,6 +1,6 @@
-﻿namespace Chad_GPT_Models.API
+﻿namespace Chad_GPT_Models.API.AnswerModels
 {
-    public class Choice
+    public class AnswerChoice
     {
         public string text { get; set; }
         public int index { get; set; }

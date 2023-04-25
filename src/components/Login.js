@@ -8,7 +8,7 @@ const Login = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [loggedInUser, setLoggedInUser] = useState('');
-    const [cookie, setCookie] = useCookies(['user'])
+    const [cookieUser, setUser] = useCookies(["user"])
     const userLogin = (e) => {
         console.log(userName + " " + [password])
         const userData = {
@@ -29,13 +29,13 @@ const Login = () => {
         const user = data;
         if(data) {
             setLoggedInUser(user)
-            setCookie('user', loggedInUser, { path: '/'})
+            setUser('user', loggedInUser, { path: '/'})
         }
         
     }
     return( 
         <div>
-            <Header user={cookie.user ? cookie.user : null} ></Header>
+            <Header user={cookieUser.user ? cookieUser.user : null} ></Header>
             <div>
                 <form className={Classes.form} >
                     <label className={Classes.label} >

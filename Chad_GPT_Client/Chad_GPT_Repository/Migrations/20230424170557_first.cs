@@ -17,11 +17,27 @@ namespace Chad_GPT_Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ImageCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImageCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,6 +57,35 @@ namespace Chad_GPT_Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Image",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImagePrompt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Image_ImageCategory_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "ImageCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Image_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "QuestionAnswers",
                 columns: table => new
                 {
@@ -50,14 +95,15 @@ namespace Chad_GPT_Repository.Migrations
                     Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CategoryCategoryId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_QuestionAnswers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_QuestionAnswers_Categories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_QuestionAnswers_Categories_CategoryCategoryId",
+                        column: x => x.CategoryCategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -70,9 +116,19 @@ namespace Chad_GPT_Repository.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuestionAnswers_CategoryId",
-                table: "QuestionAnswers",
+                name: "IX_Image_CategoryId",
+                table: "Image",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Image_UserId",
+                table: "Image",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuestionAnswers_CategoryCategoryId",
+                table: "QuestionAnswers",
+                column: "CategoryCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionAnswers_UserId",
@@ -84,7 +140,13 @@ namespace Chad_GPT_Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Image");
+
+            migrationBuilder.DropTable(
                 name: "QuestionAnswers");
+
+            migrationBuilder.DropTable(
+                name: "ImageCategory");
 
             migrationBuilder.DropTable(
                 name: "Categories");

@@ -7,7 +7,7 @@ const Register = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [cookie, setCookie] = useCookies(['user'])
+    const [cookieUser, setUser] = useCookies(["user"])
     const register = async() => {
         
     const requestData= {
@@ -32,7 +32,7 @@ const Register = () => {
 
     return(
         <div>
-            <Header user={cookie.user} />
+            <Header user={cookieUser.user} />
         
             <div>
                 <form className={Classes.form} >
