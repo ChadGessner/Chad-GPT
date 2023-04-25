@@ -8,6 +8,7 @@ namespace Chad_GPT_Domain
     public class UserInteractor
     {
         private AnswerRepository _db;
+        
         public UserInteractor()
         {
             _db = new AnswerRepository();
@@ -42,5 +43,6 @@ namespace Chad_GPT_Domain
             }
             return null;
         }
+        
     }
 }

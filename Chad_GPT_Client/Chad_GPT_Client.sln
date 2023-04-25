@@ -5,8 +5,6 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Client", "Chad_GPT_Client\Chad_GPT_Client.csproj", "{192FF836-3034-4E2F-82DF-466215286940}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Console", "..\Chad_GPT_Console\Chad_GPT_Console\Chad_GPT_Console.csproj", "{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Web_API", "Chad_GPT_Web_API\Chad_GPT_Web_API.csproj", "{510DE05E-F207-4FB3-9E85-EC97B17E04D9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BA8BFC1B-7319-4090-A2D3-575CA2017881} = {BA8BFC1B-7319-4090-A2D3-575CA2017881}
@@ -15,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Web_API", "Chad_GP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Models", "Chad_GPT_Models\Chad_GPT_Models.csproj", "{BA8BFC1B-7319-4090-A2D3-575CA2017881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chad_GPT_Repository", "Chad_GPT_Repository\Chad_GPT_Repository.csproj", "{91D86426-9AD0-4A5A-968A-667A8D6C4F55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Repository", "Chad_GPT_Repository\Chad_GPT_Repository.csproj", "{91D86426-9AD0-4A5A-968A-667A8D6C4F55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chad_GPT_Domain", "Chad_GPT_Domain\Chad_GPT_Domain.csproj", "{E116ABF5-4DE8-4056-A03A-4C0FBEA5FA84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Domain", "Chad_GPT_Domain\Chad_GPT_Domain.csproj", "{E116ABF5-4DE8-4056-A03A-4C0FBEA5FA84}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chad_GPT_Console", "..\..\..\C#\Chad_GPT_Console\Chad_GPT_Console\Chad_GPT_Console.csproj", "{E781AC9D-452F-46AE-BC82-1413D1960F93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,6 @@ Global
 		{192FF836-3034-4E2F-82DF-466215286940}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{192FF836-3034-4E2F-82DF-466215286940}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{192FF836-3034-4E2F-82DF-466215286940}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7116E6CF-C7B3-4643-BD61-50CD1E664CE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{510DE05E-F207-4FB3-9E85-EC97B17E04D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{510DE05E-F207-4FB3-9E85-EC97B17E04D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{510DE05E-F207-4FB3-9E85-EC97B17E04D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,6 +45,10 @@ Global
 		{E116ABF5-4DE8-4056-A03A-4C0FBEA5FA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E116ABF5-4DE8-4056-A03A-4C0FBEA5FA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E116ABF5-4DE8-4056-A03A-4C0FBEA5FA84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E781AC9D-452F-46AE-BC82-1413D1960F93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E781AC9D-452F-46AE-BC82-1413D1960F93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E781AC9D-452F-46AE-BC82-1413D1960F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E781AC9D-452F-46AE-BC82-1413D1960F93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

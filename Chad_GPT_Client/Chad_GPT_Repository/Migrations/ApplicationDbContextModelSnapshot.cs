@@ -22,7 +22,7 @@ namespace Chad_GPT_Repository.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Chad_GPT_Models.DBModels.Category", b =>
+            modelBuilder.Entity("Chad_GPT_Models.DBModels.Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,13 +30,54 @@ namespace Chad_GPT_Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePrompt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Image");
+                });
+
+            modelBuilder.Entity("Chad_GPT_Models.DBModels.ImageCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("ImageCategory");
                 });
 
             modelBuilder.Entity("Chad_GPT_Models.DBModels.QuestionAnswer", b =>
@@ -50,6 +91,9 @@ namespace Chad_GPT_Repository.Migrations
                     b.Property<string>("Answer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryCategoryId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -66,11 +110,32 @@ namespace Chad_GPT_Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryCategoryId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("QuestionAnswers");
+                });
+
+            modelBuilder.Entity("Chad_GPT_Models.DBModels.QuestionCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Chad_GPT_Models.DBModels.User", b =>
@@ -101,11 +166,30 @@ namespace Chad_GPT_Repository.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Chad_GPT_Models.DBModels.Image", b =>
+                {
+                    b.HasOne("Chad_GPT_Models.DBModels.ImageCategory", "Category")
+                        .WithMany("Images")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Chad_GPT_Models.DBModels.User", "User")
+                        .WithMany("Images")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Chad_GPT_Models.DBModels.QuestionAnswer", b =>
                 {
-                    b.HasOne("Chad_GPT_Models.DBModels.Category", "CategoryCategory")
+                    b.HasOne("Chad_GPT_Models.DBModels.QuestionCategory", "CategoryCategory")
                         .WithMany("Answers")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CategoryCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -120,7 +204,12 @@ namespace Chad_GPT_Repository.Migrations
                     b.Navigation("Poster");
                 });
 
-            modelBuilder.Entity("Chad_GPT_Models.DBModels.Category", b =>
+            modelBuilder.Entity("Chad_GPT_Models.DBModels.ImageCategory", b =>
+                {
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Chad_GPT_Models.DBModels.QuestionCategory", b =>
                 {
                     b.Navigation("Answers");
                 });
@@ -128,6 +217,8 @@ namespace Chad_GPT_Repository.Migrations
             modelBuilder.Entity("Chad_GPT_Models.DBModels.User", b =>
                 {
                     b.Navigation("Answers");
+
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }
