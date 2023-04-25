@@ -14,7 +14,12 @@
     background-color: #230052;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
-
+.nav > div > h3 {
+    display: flex;
+    flex-flow:row wrap;
+    min-width:100vw;
+    text-justify: center;
+}
 .header {
     display: flex;
     flex-flow: row;
