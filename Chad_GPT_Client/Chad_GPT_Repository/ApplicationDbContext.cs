@@ -12,9 +12,10 @@ namespace Chad_GPT_Repository
     public class ApplicationDbContext : DbContext
     {
         private static IConfigurationRoot _configuration;
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<QuestionCategory> Categories { get; set; }
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Image> Images { get; set; }
         public ApplicationDbContext()
         {
 

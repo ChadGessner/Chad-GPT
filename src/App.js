@@ -7,6 +7,7 @@ import Form from './components/Form';
 import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
+import Images from './components/Images'
 import { useCookies } from 'react-cookie';
 const uri = 'https://localhost:7185/api/ChadGPT/AskChadGPT/';
 
@@ -54,6 +55,7 @@ function App() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
             <Route path="/form" element={<Form/>}/>
+            <Route path="/images" element={<Images/>}/>
           </Routes>
           
         

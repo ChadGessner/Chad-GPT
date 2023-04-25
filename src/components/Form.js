@@ -4,14 +4,14 @@ import classes from './Form.module.css';
 import Header from './Header';
 import { useCookies} from 'react-cookie';
 // ################# Check if this works ##################
-import { tinymceKey } from '../Secret/keys.module';
+import { tinymceKey } from '../Secrets/keys.module';
 const key = tinymceKey;
 // ################# Check if this works ##################
 
 const uri = 'https://localhost:7185/api/ChadGPT/AskChadGPT/';
 
 const Form = () => {
-    const [cookie, setCookie] = useCookies(['user'])
+    const [cookieUser, setUser] = useCookies(["user"])
     const [content, setContent] = useState('')
     let currentQuestion = '';
     const editorRef = useRef(null);
@@ -39,7 +39,7 @@ const Form = () => {
 
     return (
         <div className={classes.stuff}>
-            <Header user={cookie.user} />
+            <Header user={cookieUser.user} />
             <h2>Welcome to CHAD GPT ask me anything!</h2>
             <button onClick={(e)=>sendRequest(e)}>Get Answers!</button>
             <Editor

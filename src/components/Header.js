@@ -4,11 +4,11 @@ import Classes from './Header.module.css';
 import { useCookies } from 'react-cookie';
 
 const Header = (props) => {
-    const [cookie, setCookie] = useCookies(['user'])
+    const [cookieUser, setUser] = useCookies(["user"])
     let welcomeMessage = 'Welcome to Chad GPT!'
     if(props.user) {
         
-        welcomeMessage += ' ' + cookie.user.userName;
+        welcomeMessage += ' ' + cookieUser.user.userName;
     }
     
 
@@ -34,6 +34,11 @@ const Header = (props) => {
                     <div>
                         <a>
                         <Link to="/form">Form</Link>
+                        </a>
+                    </div>
+                    <div >
+                        <a >
+                            <Link to="/Images">Images</Link>
                         </a>
                     </div>
                 </div>
