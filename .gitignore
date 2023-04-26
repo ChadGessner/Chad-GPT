@@ -365,4 +365,4 @@ FodyWeavers.xsd
 # Misc
 **/client/src/app/generated/
 **/Chad_GPT_Client/Chad_GPT_Client/Secrets.cs
-**/src/Secret/keys.module.js
+**/Chad-GPT/src/Secrets/Secrets.js

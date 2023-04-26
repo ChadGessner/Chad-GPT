@@ -13,12 +13,12 @@ namespace Chad_GPT_Web_API.Controllers
     [ApiController]
     public class ImageController : ControllerBase
     {
-        private CGPTClient _client;
+        private CGPTImagesClient _client;
         private ImageInteractor _db;
         public ImageController()
         {
             _db = new ImageInteractor();
-            _client = new CGPTClient();
+            _client = new CGPTImagesClient();
         }
         [HttpGet("ImagePrompt/{imagePrompt}")]
         public ImageRoot ImagePrompt([FromBody]JsonObject user, string imagePrompt)

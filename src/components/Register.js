@@ -60,7 +60,9 @@ const Register = () => {
                 
                 </form>
         
-                <button onClick={()=>register()} type="submit">Register!</button>
+                <button 
+                onClick={()=>register()} 
+                type="submit">Register!</button>
             </div>
         </div>
     )

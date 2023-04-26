@@ -19,9 +19,7 @@ const Header = (props) => {
                     <h3>{welcomeMessage}</h3>
                 </div>
                 <div className={Classes.links}>
-
-                
-                    <div >
+                    <div>
                         <a >
                             <Link to="/login">Login</Link>
                         </a>
