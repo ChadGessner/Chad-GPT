@@ -12,8 +12,6 @@ const AnswerList = (props) => {
             key={answer.id}
             question={answer.question}
             answer={answer.answer} />
-
-
         ))}
     </ul>)
 }

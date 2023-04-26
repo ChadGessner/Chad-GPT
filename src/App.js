@@ -1,7 +1,14 @@
 import React, { useState} from 'react';
+import {BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
+
 import './App.css';
 import AnswerList from './components/AnswerList'
 import Form from './components/Form';
+import Header from './components/Header';
+import Login from './components/Login';
+import Register from './components/Register';
+import Images from './components/Images'
+import { useCookies } from 'react-cookie';
 const uri = 'https://localhost:7185/api/ChadGPT/AskChadGPT/';
 
 const question = 'What are the four fundamental pillars of OOP?';
@@ -41,16 +48,30 @@ function App() {
     return (
       
 
-      <React.Fragment>
-      <section>
-        < button onClick={fetchAnswer} >Answers</button>
-      </section>
-      <section>
-        {!isLoading && <AnswerList answers={answers} />}
-        {isLoading && <div>loading...</div>}
-      </section>
-      <Form></Form>
-      </React.Fragment>
+        <BrowserRouter>
+          
+          <Routes>
+            <Route path="/" element={<Header/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/register" element={<Register/>}/>
+            <Route path="/form" element={<Form/>}/>
+            <Route path="/images" element={<Images/>}/>
+          </Routes>
+          
+        
+        
+      
+          </BrowserRouter>
+        
+      // <section>
+      //   < button onClick={fetchAnswer} >Answers</button>
+      // </section>
+      // <section>
+      //   {!isLoading && <AnswerList answers={answers} />}
+      //   {isLoading && <div>loading...</div>}
+      // </section>
+      
+      
       // <React.Fragment>
     // </React.Fragment>
     );
