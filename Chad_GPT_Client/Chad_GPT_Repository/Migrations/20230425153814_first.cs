@@ -26,7 +26,7 @@ namespace Chad_GPT_Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ImageCategory",
+                name: "ImageCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -37,7 +37,7 @@ namespace Chad_GPT_Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ImageCategory", x => x.Id);
+                    table.PrimaryKey("PK_ImageCategories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,7 +57,7 @@ namespace Chad_GPT_Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Image",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -70,15 +70,15 @@ namespace Chad_GPT_Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Image_ImageCategory_CategoryId",
+                        name: "FK_Images_ImageCategories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "ImageCategory",
+                        principalTable: "ImageCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Image_Users_UserId",
+                        name: "FK_Images_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -116,13 +116,13 @@ namespace Chad_GPT_Repository.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Image_CategoryId",
-                table: "Image",
+                name: "IX_Images_CategoryId",
+                table: "Images",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Image_UserId",
-                table: "Image",
+                name: "IX_Images_UserId",
+                table: "Images",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -140,13 +140,13 @@ namespace Chad_GPT_Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Image");
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "QuestionAnswers");
 
             migrationBuilder.DropTable(
-                name: "ImageCategory");
+                name: "ImageCategories");
 
             migrationBuilder.DropTable(
                 name: "Categories");

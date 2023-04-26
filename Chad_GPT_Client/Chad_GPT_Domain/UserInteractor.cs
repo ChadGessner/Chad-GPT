@@ -7,11 +7,11 @@ namespace Chad_GPT_Domain
 {
     public class UserInteractor
     {
-        private AnswerRepository _db;
+        private UserRepository _db;
         
         public UserInteractor()
         {
-            _db = new AnswerRepository();
+            _db = new UserRepository();
         }
 
         public User Login(string userName, string password)

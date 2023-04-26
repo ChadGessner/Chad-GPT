@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chad_GPT_Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230424170557_first")]
+    [Migration("20230425153814_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -56,7 +56,7 @@ namespace Chad_GPT_Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Chad_GPT_Models.DBModels.ImageCategory", b =>
@@ -80,7 +80,7 @@ namespace Chad_GPT_Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ImageCategory");
+                    b.ToTable("ImageCategories");
                 });
 
             modelBuilder.Entity("Chad_GPT_Models.DBModels.QuestionAnswer", b =>

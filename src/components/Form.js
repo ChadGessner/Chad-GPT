@@ -3,18 +3,32 @@ import { Editor } from '@tinymce/tinymce-react';
 import classes from './Form.module.css';
 import Header from './Header';
 import { useCookies} from 'react-cookie';
+import SaveForm from './SaveForm'
 // ################# Check if this works ##################
 import { tinymceKey } from '../Secrets/keys.module';
 const key = tinymceKey;
 // ################# Check if this works ##################
 
-const uri = 'https://localhost:7185/api/ChadGPT/AskChadGPT/';
 
+const urls = {
+    qAndA: 'https://localhost:7185/api/QandA/',
+    askCGPT: 'https://localhost:7185/api/ChadGPT/AskChadGPT/'
+}
 const Form = () => {
+    
     const [cookieUser, setUser] = useCookies(["user"])
     const [content, setContent] = useState('')
     let currentQuestion = '';
     const editorRef = useRef(null);
+
+    const getCategories = async() => {
+        const response = await fetch(urls.qAndA + 'GetQuestionCategories', {})
+        const json = response.json();
+        console.log(json)
+        
+        return [...json]
+    }
+
     const log = () => {
         
         if(editorRef.current){
@@ -29,7 +43,7 @@ const Form = () => {
     const sendRequest = async(e) => {
         const editor = window.tinymce.get('ask-chad-gpt')
         const question = editor.getContent();
-        const response = await fetch(uri + question,{});
+        const response = await fetch(urls.askCGPT + question,{});
         const data = await response.json();
         const answerAnswer = data.value;
         const newContent = question +  answerAnswer;
@@ -39,7 +53,9 @@ const Form = () => {
 
     return (
         <div className={classes.stuff}>
+            
             <Header user={cookieUser.user} />
+            <SaveForm categoryList={getCategories} user={cookieUser.user}/>
             <h2>Welcome to CHAD GPT ask me anything!</h2>
             <button onClick={(e)=>sendRequest(e)}>Get Answers!</button>
             <Editor

@@ -4,12 +4,12 @@ using Microsoft.Extensions.Configuration;
 
 namespace Chad_GPT_Repository
 {
-    public class AnswerRepository
+    public class UserRepository
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
         private IConfigurationRoot _configuration;
         private DbContextOptionsBuilder<ApplicationDbContext> _optionsBuilder;
-        public AnswerRepository()
+        public UserRepository()
         {
             BuildOptions();
         }
