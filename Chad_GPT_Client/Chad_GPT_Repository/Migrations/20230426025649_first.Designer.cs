@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chad_GPT_Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230425153814_first")]
+    [Migration("20230426025649_first")]
     partial class first
     {
         /// <inheritdoc />

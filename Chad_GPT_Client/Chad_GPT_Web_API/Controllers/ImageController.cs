@@ -6,6 +6,7 @@ using System.Text.Json.Nodes;
 using Newtonsoft.Json;
 using Chad_GPT_Models.DBModels;
 using Chad_GPT_Domain;
+using Chad_GPT_Repository.IRepository;
 
 namespace Chad_GPT_Web_API.Controllers
 {
@@ -15,21 +16,23 @@ namespace Chad_GPT_Web_API.Controllers
     {
         private CGPTImagesClient _client;
         private ImageInteractor _db;
-        public ImageController()
-        {
-            _db = new ImageInteractor();
-            _client = new CGPTImagesClient();
-        }
-        [HttpGet("ImagePrompt/{imagePrompt}")]
-        public ImageRoot ImagePrompt([FromBody]JsonObject user, string imagePrompt)
-        {
-            //User theUser = JsonConvert.DeserializeObject<User>(user["user"].ToString());
-            //string url = _client.ImagePrompt(imagePrompt).Result.data.
-            //Image image = new Image() 
-            //{
-            //    url = 
-            //};
-            return _client.ImagePrompt(imagePrompt).Result;
-        }
+        
+        //public ImageController()
+        //{
+            
+        //    _db = new ImageInteractor();
+        //    _client = new CGPTImagesClient();
+        //}
+        //[HttpGet("ImagePrompt/{imagePrompt}")]
+        //public ImageRoot ImagePrompt([FromBody]JsonObject user, string imagePrompt)
+        //{
+        //    //User theUser = JsonConvert.DeserializeObject<User>(user["user"].ToString());
+        //    //string url = _client.ImagePrompt(imagePrompt).Result.data.
+        //    //Image image = new Image() 
+        //    //{
+        //    //    url = 
+        //    //};
+        //    return _client.ImagePrompt(imagePrompt).Result;
+        //}
     }
 }

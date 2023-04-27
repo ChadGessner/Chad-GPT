@@ -1,5 +1,6 @@
 ﻿using Chad_GPT_Models.DBModels;
 using Chad_GPT_Repository;
+using Chad_GPT_Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,10 @@ namespace Chad_GPT_Domain
     public class ImageInteractor
     {
         private ImageRepository _db;
-        public ImageInteractor()
+        private readonly IUnitOfWork _unitOfWork;
+        public ImageInteractor(IUnitOfWork unitOfWork)
         {
-            _db = new ImageRepository();
+            _unitOfWork = unitOfWork;
         }
         public List<Image> InsertImage(User user, Image image)
         {

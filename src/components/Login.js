@@ -9,6 +9,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loggedInUser, setLoggedInUser] = useState('');
     const [cookieUser, setUser] = useCookies(["user"])
+    
     const userLogin = (e) => {
         console.log(userName + " " + [password])
         const userData = {
@@ -30,6 +31,7 @@ const Login = () => {
         if(data) {
             setLoggedInUser(user)
             setUser('user', loggedInUser, { path: '/'})
+            console.log(cookieUser["categoryList"])
         }
         
     }

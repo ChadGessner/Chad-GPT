@@ -1,6 +1,7 @@
 ﻿using Chad_GPT_Models.DBModels;
 using Chad_GPT_Models.HttpRequestModels;
 using Chad_GPT_Repository;
+using Chad_GPT_Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,21 @@ namespace Chad_GPT_Domain
     
     public class QuestionInteractor
     {
+        private readonly IUnitOfWork _unitOfWork;
         private QuestionRepository _db;
-        public QuestionInteractor()
+        public QuestionInteractor(IUnitOfWork unitOfWork)
         {
-            _db = new QuestionRepository();
+            _unitOfWork = unitOfWork;
         }
-        public QuestionCategory InsertQuestionCategory(QuestionCategory model)
+        /// this is all fucked up for now...
+        public QuestionAnswerRequestRoot InsertQuestionCategory(QuestionAnswerRequestRoot model)
         {
+            QuestionCategoryResponseModel cat;
+            User user;
 
 
-            Console.WriteLine("FUUUUUUUUCK" + model.Description );
-                return _db.InsertCategory(model);
+
+            return model;//_unitOfWork.Question.Add(model);
             
         }
         public List<QuestionCategory>? GetAllCategories()

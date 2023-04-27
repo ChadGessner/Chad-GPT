@@ -1,10 +1,10 @@
 import React, {useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import './SaveForm.css'
-
+import CategoryList from './CategoryList'
 const uri = 'https://localhost:7185/api/QandA/'
 const SaveForm = (props) => {
-    //const selectRef = useRef(null)
+    let categoryList = []
     const [cookieUser, setUser] = useCookies(["user"])
     const [formState, setFormState] = useState({
         question: props.question,
@@ -25,38 +25,47 @@ const SaveForm = (props) => {
             email: '',
             created: new Date().getDate()
         },
-        categoryList: [{
-            id: -1,
-            name: 'stuff',
-            description: 'things'
-        }]
+        categoryList: []
     })
-    useEffect(async()=>{
-        const response = await fetch(uri + 'GetQuestionCategories',{})
-        const json = await response.json();
-        if(json){
-            setFormState(
-            (prev)=>{
-                const newData = {...prev}
-                newData.categoryList = json;
-                return newData;
-            });
-        }else{
-            setFormState(
-                (prev)=>{
-                    const newData = {...prev};
-                    return newData;
-                }
-            )
+    
+    const postQuestion = async(event) => {
+        event.preventDefault()
+        console.log(cookieUser["question"])
+        if(cookieUser && props.question && props.answer && formState.selectedCategory){
+            const questionPostModel = {
+                user: cookieUser.user,
+                question: {
+                    question: props.question,
+                    answer: props.answer
+                },
+                category: formState.selectedCategory
+            }
+            const response = await fetch(uri + 'PostAnswer',{
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(questionPostModel)
+            })
+            const json = await response.json;
+            if(json){
+                console.log(json);
+                console.log("fuck maybe?!")
+            }
+            
         }
-        
+        console.log(formState)
+    }
+    const isRender = formState.categoryList.length !== 0;
+    useEffect(()=>{
+        console.log(cookieUser.answer)
+        console.log(cookieUser.question)
+        getCategoryList()
+        return ()=>{}
     }, [])
-    // const setCategoryList = async() => {
-    //     await setFormState(
-    //         getCategoryList()
-    //     )
-    //     return formState.categoryList;
-    // }
+    const setCategoryList = async() => {
+        return getCategoryList();
+    }
     const setNameCategory = (e) => {
         setFormState(
             (prev)=>{
@@ -96,6 +105,7 @@ const SaveForm = (props) => {
         )
     }
     const setCategory = (e) => {
+        console.log(e)
         setFormState(
             (prev)=> {
                 const newState = {...prev}
@@ -103,6 +113,7 @@ const SaveForm = (props) => {
                 return newState
             }
         )
+        
     }
     
     const postCategory = async(e) => {
@@ -115,15 +126,20 @@ const SaveForm = (props) => {
             },
             body: JSON.stringify(formState.createdCategory)
         })
-        const json = response.json();
+        const json = await response.json();
         console.log(json);
         return json;
     }
     const getCategoryList = async() => {
         const response = await fetch(uri + 'GetQuestionCategories', {})
-        const json = response.json();
-        console.log(json)
-        return json;
+        const json = await response.json();
+        setFormState(
+            (prev)=>{
+                const newData = {...prev};
+                newData.categoryList = json
+                return newData;
+            }
+        )
     }
     return(
         <div className="card" >
@@ -148,7 +164,9 @@ const SaveForm = (props) => {
             </div>
 
             <div className="card">
-                <form className="form" >
+                <form 
+                onSubmit={postQuestion}
+                className="form" >
                     <label className="label" >
                         Question
                     </label>
@@ -164,21 +182,21 @@ const SaveForm = (props) => {
                     <label className="label" >
                         Category
                     </label>
-                    <select 
                     
-                    className="select">
-                        {formState.categoryList.map(
-                                (cat)=>(
-                                    <div
-                                    onClick={(e)=> setCategory(cat)}
-                                    key={cat}
-                                    >{cat.name}</div>))}
-                        
-                    </select>
-                    <button>Submit New Question</button>
+                    <button type="submit" >Submit New Question</button>
                 </form>
             </div>
+            <div className='card'>
+                {
+                    formState.categoryList.length > 0 &&
+                    <CategoryList selectedCategory={
+                        (e)=>setCategory(e)} 
+                        categoryList={formState.categoryList} ></CategoryList>
+                }
+                
+            </div>
         </div>
+    
     )
 }
 export default SaveForm;

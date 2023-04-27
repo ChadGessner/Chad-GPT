@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Chad_GPT_Repository
 {
-    public class ImageRepository : Repository<Image>, IImageRepository
+    public class QuestionCategoryRepository : Repository<QuestionCategory>, IQuestionCategoryRepository
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
         private IConfigurationRoot _configuration;
         private DbContextOptionsBuilder<ApplicationDbContext> _optionsBuilder;
-        public ImageRepository(ApplicationDbContext db) : base(db)
+        public QuestionCategoryRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
             BuildOptions();
@@ -25,10 +25,6 @@ namespace Chad_GPT_Repository
             _configuration = ConfigurationBuilderSingleton.ConfigurationRoot;
             _optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             _optionsBuilder.UseSqlServer(_configuration.GetConnectionString("StringyConnections"));
-        }
-        public Image InsertImage(User user, Image image)
-        {
-            return new Image();
         }
     }
 }

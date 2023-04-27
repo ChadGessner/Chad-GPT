@@ -12,11 +12,14 @@ const key = tinymceKey;
 
 const urls = {
     qAndA: 'https://localhost:7185/api/QandA/',
-    askCGPT: 'https://localhost:7185/api/ChadGPT/AskChadGPT/'
+    askCGPT: 'https://localhost:7185/api/QandA/AskChadGPT/'
 }
-const Form = () => {
+const Form = (props) => {
     
-    const [cookieUser, setUser] = useCookies(["user"])
+    const [cookieUser, setCookie] = useCookies(["cookie"]);
+    const [cookieQuestion, setQuestion] = useCookies(["question"]);
+    const [cookieAnswer, setAnswer] = useCookies(["answer"])
+    const [categories, setCategories] = useCookies(["categoryList"]);
     const [content, setContent] = useState('')
     let currentQuestion = '';
     const editorRef = useRef(null);
@@ -24,17 +27,15 @@ const Form = () => {
     const getCategories = async() => {
         const response = await fetch(urls.qAndA + 'GetQuestionCategories', {})
         const json = response.json();
-        console.log(json)
-        
         return [...json]
     }
 
-    const log = () => {
+    // const log = () => {
         
-        if(editorRef.current){
-            console.log(editorRef.current.getContent());
-        }
-    };
+    //     if(editorRef.current){
+    //         console.log(editorRef.current.getContent());
+    //     }
+    // };
     const handleEditorChange = (content, editor) => {
         
         setContent(content)
@@ -47,6 +48,16 @@ const Form = () => {
         const data = await response.json();
         const answerAnswer = data.value;
         const newContent = question +  answerAnswer;
+        setQuestion(
+            "question",
+             question,
+              {path: '/'}
+        )
+        setAnswer(
+            "answer",
+             answerAnswer,
+              {path: '/'}
+        )
         editor.setContent(newContent);
     }
     //missing 'print' and 'paste' plugins
@@ -55,7 +66,11 @@ const Form = () => {
         <div className={classes.stuff}>
             
             <Header user={cookieUser.user} />
-            <SaveForm categoryList={getCategories} user={cookieUser.user}/>
+            <SaveForm 
+            question={cookieUser.question}
+            answer={cookieUser.answer}
+            categoryList={getCategories} 
+            user={cookieUser.user}/>
             <h2>Welcome to CHAD GPT ask me anything!</h2>
             <button onClick={(e)=>sendRequest(e)}>Get Answers!</button>
             <Editor
@@ -66,7 +81,6 @@ const Form = () => {
             init={{
                 height: 500,
                 width: '80%',
-                
                 menubar: false,
                 
                   plugins: [
