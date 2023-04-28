@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
 
 import './App.css';
@@ -10,44 +10,57 @@ import Register from './components/Register';
 import Images from './components/Images'
 import { useCookies } from 'react-cookie';
 const uri = 'https://localhost:7185/api/ChadGPT/AskChadGPT/';
+const categoryUri = 'https://localhost:7185/api/QandA/';
 
-const question = 'What are the four fundamental pillars of OOP?';
+//const question = 'What are the four fundamental pillars of OOP?';
 
 function App() {
   const [answers, setAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  
-  
-  const fetchAnswer = async() => {
-    setIsLoading(true);
-    const response = await fetch(uri + question,{});
-    const data = await response.json();
-    //const answerAnswer = data.value;
-    const newAnswer = [data.value].map((m)=>{
-      return {
-        id: answersArray.length + 1,
-        question: question,
-        answer: m}
-    })
+  const [cookie, setCookie] = useCookies(["categoryList"]);
+  const fetchSomeData = async() => {
+    console.log('stuff')
     
-    setAnswers(newAnswer)
-    if(answersArray){
-      answersArray.concat(answers)
-    }
-    console.log(answersArray)
-    setIsLoading(false)
-  }
-  let answersArray = [{
-    id: 0,
-    question: 'how do?',
-    answer: '...'
-  }];
-  
-  
-  
-    return (
+      const response = await fetch(categoryUri + 'GetQuestionCategories',{
       
-
+      })
+      const json = await response.json();
+      if(json) {
+        setCookie('categoryList', json, {path: '/'})
+      }
+      console.log(cookie["categoryList"])
+      console.log(cookie["user"])
+      
+    }
+  useEffect(()=>{
+    fetchSomeData()
+    return ()=>{}
+  },[])
+  // const fetchAnswer = async() => {
+  //   setIsLoading(true);
+  //   const response = await fetch(uri + question,{});
+  //   const data = await response.json();
+  //   //const answerAnswer = data.value;
+  //   const newAnswer = [data.value].map((m)=>{
+  //     return {
+  //       id: answersArray.length + 1,
+  //       question: question,
+  //       answer: m}
+  //   })
+    
+  //   setAnswers(newAnswer)
+  //   if(answersArray){
+  //     answersArray.concat(answers)
+  //   }
+  //   console.log(answersArray)
+  //   setIsLoading(false)
+  // }
+  // let answersArray = [{
+  //   id: 0,
+  //   question: 'how do?',
+  //   answer: '...'
+  // }];
+    return (
         <BrowserRouter>
           
           <Routes>

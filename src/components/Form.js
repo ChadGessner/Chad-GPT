@@ -12,11 +12,13 @@ const key = tinymceKey;
 
 const urls = {
     qAndA: 'https://localhost:7185/api/QandA/',
-    askCGPT: 'https://localhost:7185/api/ChadGPT/AskChadGPT/'
+    askCGPT: 'https://localhost:7185/api/QandA/AskChadGPT/'
 }
 const Form = () => {
-    
-    const [cookieUser, setUser] = useCookies(["user"])
+    const [cookieUser, setCookie] = useCookies(["cookie"]);
+    const [cookieQuestion, setQuestion] = useCookies(["question"]);
+    const [cookieAnswer, setAnswer] = useCookies(["answer"])
+    const [categories, setCategories] = useCookies(["categoryList"]);
     const [content, setContent] = useState('')
     let currentQuestion = '';
     const editorRef = useRef(null);
@@ -24,17 +26,15 @@ const Form = () => {
     const getCategories = async() => {
         const response = await fetch(urls.qAndA + 'GetQuestionCategories', {})
         const json = response.json();
-        console.log(json)
-        
         return [...json]
     }
 
-    const log = () => {
+    // const log = () => {
         
-        if(editorRef.current){
-            console.log(editorRef.current.getContent());
-        }
-    };
+    //     if(editorRef.current){
+    //         console.log(editorRef.current.getContent());
+    //     }
+    // };
     const handleEditorChange = (content, editor) => {
         
         setContent(content)

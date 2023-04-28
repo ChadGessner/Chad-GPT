@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import './SaveForm.css'
-
+import CategoryList from './CategoryList'
 const uri = 'https://localhost:7185/api/QandA/'
 const SaveForm = (props) => {
     //const selectRef = useRef(null)
@@ -25,38 +25,56 @@ const SaveForm = (props) => {
             email: '',
             created: new Date().getDate()
         },
-        categoryList: [{
-            id: -1,
-            name: 'stuff',
-            description: 'things'
-        }]
+        categoryList: []
     })
-    useEffect(async()=>{
-        const response = await fetch(uri + 'GetQuestionCategories',{})
-        const json = await response.json();
-        if(json){
-            setFormState(
-            (prev)=>{
-                const newData = {...prev}
-                newData.categoryList = json;
-                return newData;
-            });
-        }else{
-            setFormState(
-                (prev)=>{
-                    const newData = {...prev};
-                    return newData;
+    const postQuestion = async(event) => {
+        event.preventDefault()
+        console.log(cookieUser["question"])
+        //if(cookieUser && props.question && props.answer && formState.selectedCategory){
+            const questionPostModel = {
+                user: {
+                    id: cookieUser.user.id,
+                    userName: cookieUser.user.userName,
+                    email: cookieUser.user.email,
+                    password: cookieUser.user.password
+                },
+                questionAnswer: {
+                    question: formState.question,
+                    answer: formState.answer
+                },
+                category: {
+                    id: formState.selectedCategory.id,
+                    name: formState.selectedCategory.name,
+                    description: formState.selectedCategory.description
                 }
-            )
-        }
-        
+            }
+            console.log(questionPostModel)
+            const response = await fetch(uri + 'PostQuestion',{
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(questionPostModel)
+            })
+            const json = await response.json;
+            if(json){
+                console.log(JSON.stringify(json));
+                console.log("fuck maybe?!")
+            }
+            
+        //}
+        console.log(formState)
+    }
+    const isRender = formState.categoryList.length !== 0;
+    useEffect(()=>{
+        console.log(cookieUser.answer)
+        console.log(cookieUser.question)
+        getCategoryList()
+        return ()=>{}
     }, [])
-    // const setCategoryList = async() => {
-    //     await setFormState(
-    //         getCategoryList()
-    //     )
-    //     return formState.categoryList;
-    // }
+    const setCategoryList = async() => {
+        return getCategoryList();
+    }
     const setNameCategory = (e) => {
         setFormState(
             (prev)=>{
@@ -86,23 +104,30 @@ const SaveForm = (props) => {
     }
     const setFormAnswer = (e) => {
         const answer = e.target.value
+        console.log(answer)
         setFormState(
             (prev)=>{
                 const newState = {...prev}
                 newState.answer = answer
                 return newState;
             }
-            
         )
     }
     const setCategory = (e) => {
+        console.log(e)
         setFormState(
             (prev)=> {
                 const newState = {...prev}
-                newState.selectedCategory = e
+                newState.selectedCategory = {
+                    id: e.id,
+                    name: e.name,
+                    description: e.description
+                }
+                
                 return newState
             }
         )
+        console.log(formState.selectedCategory)
     }
     
     const postCategory = async(e) => {
@@ -115,15 +140,20 @@ const SaveForm = (props) => {
             },
             body: JSON.stringify(formState.createdCategory)
         })
-        const json = response.json();
+        const json = await response.json();
         console.log(json);
         return json;
     }
     const getCategoryList = async() => {
         const response = await fetch(uri + 'GetQuestionCategories', {})
-        const json = response.json();
-        console.log(json)
-        return json;
+        const json = await response.json();
+        setFormState(
+            (prev)=>{
+                const newData = {...prev};
+                newData.categoryList = json
+                return newData;
+            }
+        )
     }
     return(
         <div className="card" >
@@ -148,7 +178,7 @@ const SaveForm = (props) => {
             </div>
 
             <div className="card">
-                <form className="form" >
+                <form onSubmit={postQuestion} className="form" >
                     <label className="label" >
                         Question
                     </label>
@@ -164,18 +194,16 @@ const SaveForm = (props) => {
                     <label className="label" >
                         Category
                     </label>
-                    <select 
-                    
-                    className="select">
-                        {formState.categoryList.map(
-                                (cat)=>(
-                                    <div
-                                    onClick={(e)=> setCategory(cat)}
-                                    key={cat}
-                                    >{cat.name}</div>))}
-                        
-                    </select>
-                    <button>Submit New Question</button>
+                    <div className='card'>
+                    {
+                    formState.categoryList.length > 0 &&
+                    <CategoryList selectedCategory={
+                        (e)=>setCategory(e)} 
+                        categoryList={formState.categoryList} ></CategoryList>
+                    }
+                
+                </div>
+                    <button type="submit">Submit New Question</button>
                 </form>
             </div>
         </div>

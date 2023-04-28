@@ -17,12 +17,20 @@ namespace Chad_GPT_Domain
         {
             _db = new QuestionRepository();
         }
-        public QuestionCategory InsertQuestionCategory(QuestionCategory model)
+        public QuestionCategory InsertQuestionCategory(QuestionCategory questionCategory)
+        {
+            
+            return _db.InsertCategory(questionCategory);
+        }
+        public QuestionAnswer InsertQuestionAnswer(QuestionAnswerRequestRoot model)
         {
 
 
-            Console.WriteLine("FUUUUUUUUCK" + model.Description );
-                return _db.InsertCategory(model);
+            QuestionCategory cat = QuestionAnswerRequestRoot.GetQuestionCategoryFromQuestionAnswerRoot(model);
+            User user = QuestionAnswerRequestRoot.GetUserFromQuestionAnswerRequestRoot(model);
+            QuestionAnswer questionAnswer = QuestionAnswerRequestRoot.GetQuestionAnswerFromQuestionAnswerRequestRoot(model);
+
+            return _db.InsertQuestionAnswer(questionAnswer, user, cat);
             
         }
         public List<QuestionCategory>? GetAllCategories()

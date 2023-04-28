@@ -25,6 +25,17 @@ namespace Chad_GPT_Repository
             _optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             _optionsBuilder.UseSqlServer(_configuration.GetConnectionString("StringyConnections"));
         }
+        public QuestionAnswer InsertQuestionAnswer(QuestionAnswer questionAnswer, User user, QuestionCategory cat)
+        {
+            User userToAdd = _db.Users.FirstOrDefault(user => user.Id == user.Id);
+            QuestionCategory catFromDb = _db.Categories.FirstOrDefault(x => x.Id == cat.Id);
+            questionAnswer.Poster = userToAdd;
+            questionAnswer.CategoryCategory = catFromDb;
+            _db.QuestionAnswers.Add(questionAnswer);
+            _db.SaveChanges();
+            return _db.QuestionAnswers
+                .FirstOrDefault(x => x.UserId == userToAdd.Id && x.CategoryId == catFromDb.Id && x.Question == questionAnswer.Question);
+        }
         public QuestionCategory GetCategoryByNameAndDescription(string name, string description)
         {
             QuestionCategory fromDb = _db.Categories

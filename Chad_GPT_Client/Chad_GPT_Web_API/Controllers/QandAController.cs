@@ -44,6 +44,15 @@ namespace Chad_GPT_Web_API.Controllers
                 
                 return _db.InsertQuestionCategory(fuck);
         }
+        [HttpPost(nameof(PostQuestion))]
+        public QuestionAnswer PostQuestion([FromBody] JsonObject root)
+        {
+            QuestionAnswerRequestRoot requestRoot = JsonConvert
+                .DeserializeObject<QuestionAnswerRequestRoot>(root.ToString());
+            Console.WriteLine(root.ToString());
+            Console.WriteLine(requestRoot.user.id);
+            return _db.InsertQuestionAnswer(requestRoot);
+        }
         [HttpGet("AskChadGPT/{question}")]
         public KeyValuePair<string, string> AskChadGPT(string question)
         {
