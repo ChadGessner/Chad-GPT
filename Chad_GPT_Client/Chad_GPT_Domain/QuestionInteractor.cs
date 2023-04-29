@@ -36,11 +36,15 @@ namespace Chad_GPT_Domain
         public List<QuestionCategory>? GetAllCategories()
         {
             List<QuestionCategory>? list = _db.GetAllCategories();
-            if(list == null)
+            if (list == null)
             {
                 return null;
             }
             return list;
+        }
+        public List<QuestionAnswer> GetAllAnswers()
+        {
+            return _db.GetAllAnswers();
         }
     }
 }

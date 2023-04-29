@@ -11,19 +11,16 @@ import Images from './components/Images'
 import { useCookies } from 'react-cookie';
 const uri = 'https://localhost:7185/api/ChadGPT/AskChadGPT/';
 const categoryUri = 'https://localhost:7185/api/QandA/';
-
-//const question = 'What are the four fundamental pillars of OOP?';
+const getAllQuestionsUri = 'https://localhost:7185/api/QandA/GetAllQuestions';
 
 function App() {
   const [answers, setAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [cookie, setCookie] = useCookies(["categoryList"]);
+  const [questionsCookie, setQuestionsCookie] = useCookies(["questions"])
   const fetchSomeData = async() => {
-    console.log('stuff')
-    
-      const response = await fetch(categoryUri + 'GetQuestionCategories',{
-      
-      })
+
+      const response = await fetch(categoryUri + 'GetQuestionCategories',{})
       const json = await response.json();
       if(json) {
         setCookie('categoryList', json, {path: '/'})
@@ -33,9 +30,23 @@ function App() {
       
     }
   useEffect(()=>{
-    fetchSomeData()
+    fetchSomeData();
+    fetchAllAnswers()
     return ()=>{}
   },[])
+
+  const fetchAllAnswers = async() => {
+    const response =  await fetch(getAllQuestionsUri,{});
+    const json = await response.json();
+    if(json) {
+      setQuestionsCookie(
+        'questions',
+        json,
+        {path: '/'}
+      )
+    }
+    console.log(questionsCookie.questions);
+  }
   // const fetchAnswer = async() => {
   //   setIsLoading(true);
   //   const response = await fetch(uri + question,{});

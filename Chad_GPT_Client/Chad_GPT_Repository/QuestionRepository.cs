@@ -36,6 +36,10 @@ namespace Chad_GPT_Repository
             return _db.QuestionAnswers
                 .FirstOrDefault(x => x.UserId == userToAdd.Id && x.CategoryId == catFromDb.Id && x.Question == questionAnswer.Question);
         }
+        public List<QuestionAnswer> GetAllAnswers()
+        {
+            return _db.QuestionAnswers.ToList();
+        }
         public QuestionCategory GetCategoryByNameAndDescription(string name, string description)
         {
             QuestionCategory fromDb = _db.Categories

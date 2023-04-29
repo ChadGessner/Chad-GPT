@@ -53,6 +53,11 @@ namespace Chad_GPT_Web_API.Controllers
             Console.WriteLine(requestRoot.user.id);
             return _db.InsertQuestionAnswer(requestRoot);
         }
+        [HttpGet(nameof(GetAllQuestions))]
+        public IEnumerable<QuestionAnswer> GetAllQuestions()
+        {
+            return _db.GetAllAnswers();
+        }
         [HttpGet("AskChadGPT/{question}")]
         public KeyValuePair<string, string> AskChadGPT(string question)
         {
