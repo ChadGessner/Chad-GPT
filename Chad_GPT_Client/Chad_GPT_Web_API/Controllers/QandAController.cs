@@ -34,9 +34,6 @@ namespace Chad_GPT_Web_API.Controllers
         public QuestionCategory PostCategory([FromBody] JsonObject categoryData)
         {
             QuestionCategoryRequestModel model;
-            
-            
-                
                 model = JsonConvert
                 .DeserializeObject<QuestionCategoryRequestModel>(categoryData.ToString());
                
@@ -47,16 +44,27 @@ namespace Chad_GPT_Web_API.Controllers
         [HttpPost(nameof(PostQuestion))]
         public QuestionAnswer PostQuestion([FromBody] JsonObject root)
         {
+            Console.WriteLine(root.ToString());
             QuestionAnswerRequestRoot requestRoot = JsonConvert
                 .DeserializeObject<QuestionAnswerRequestRoot>(root.ToString());
             Console.WriteLine(root.ToString());
+            Console.WriteLine(requestRoot.category.Id);
             Console.WriteLine(requestRoot.user.id);
             return _db.InsertQuestionAnswer(requestRoot);
         }
         [HttpGet(nameof(GetAllQuestions))]
-        public IEnumerable<QuestionAnswer> GetAllQuestions()
+        public List<QuestionAnswer> GetAllQuestions()
         {
-            return _db.GetAllAnswers();
+            List<QuestionAnswer> questions = _db.GetAllAnswers();
+            foreach(QuestionAnswer questionAnswer in questions)
+            {
+                Console.WriteLine( questionAnswer.Id);
+                Console.WriteLine(questionAnswer.UserId);
+                Console.WriteLine(questionAnswer.CategoryId);
+                Console.WriteLine(questionAnswer.Question);
+                Console.WriteLine(questionAnswer.Answer);
+            }
+            return questions;
         }
         [HttpGet("AskChadGPT/{question}")]
         public KeyValuePair<string, string> AskChadGPT(string question)

@@ -5,7 +5,7 @@ import CategoryList from './CategoryList'
 const uri = 'https://localhost:7185/api/QandA/'
 const SaveForm = (props) => {
     //const selectRef = useRef(null)
-    const [cookieUser, setUser] = useCookies(["user"])
+    const [cookie, setUser] = useCookies(["user"],["categoryList"])
     const [formState, setFormState] = useState({
         question: props.question,
         answer: props.answer,
@@ -29,14 +29,14 @@ const SaveForm = (props) => {
     })
     const postQuestion = async(event) => {
         event.preventDefault()
-        console.log(cookieUser["question"])
+        console.log(cookie["question"])
         //if(cookieUser && props.question && props.answer && formState.selectedCategory){
             const questionPostModel = {
                 user: {
-                    id: cookieUser.user.id,
-                    userName: cookieUser.user.userName,
-                    email: cookieUser.user.email,
-                    password: cookieUser.user.password
+                    id: cookie.user.id,
+                    userName: cookie.user.userName,
+                    email: cookie.user.email,
+                    password: cookie.user.password
                 },
                 questionAnswer: {
                     question: formState.question,
@@ -67,8 +67,8 @@ const SaveForm = (props) => {
     }
     const isRender = formState.categoryList.length !== 0;
     useEffect(()=>{
-        console.log(cookieUser.answer)
-        console.log(cookieUser.question)
+        console.log(cookie.answer)
+        console.log(cookie.question)
         getCategoryList()
         return ()=>{}
     }, [])
@@ -199,7 +199,7 @@ const SaveForm = (props) => {
                     formState.categoryList.length > 0 &&
                     <CategoryList selectedCategory={
                         (e)=>setCategory(e)} 
-                        categoryList={formState.categoryList} ></CategoryList>
+                        categoryList={cookie.categoryList} ></CategoryList>
                     }
                 
                 </div>

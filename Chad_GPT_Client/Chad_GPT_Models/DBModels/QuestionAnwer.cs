@@ -13,7 +13,7 @@ namespace Chad_GPT_Models.DBModels
         public string Answer { get; set; }
         public DateTime PostedDate { get; set; }
         public int CategoryId { get; set; }
-        public virtual QuestionCategory CategoryCategory { get; set; }
+        public virtual QuestionCategory Category { get; set; }
         public int UserId { get; set; }
         public virtual User Poster { get; set; }
         

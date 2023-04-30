@@ -24,14 +24,11 @@ namespace Chad_GPT_Domain
         }
         public QuestionAnswer InsertQuestionAnswer(QuestionAnswerRequestRoot model)
         {
-
-
             QuestionCategory cat = QuestionAnswerRequestRoot.GetQuestionCategoryFromQuestionAnswerRoot(model);
             User user = QuestionAnswerRequestRoot.GetUserFromQuestionAnswerRequestRoot(model);
             QuestionAnswer questionAnswer = QuestionAnswerRequestRoot.GetQuestionAnswerFromQuestionAnswerRequestRoot(model);
 
             return _db.InsertQuestionAnswer(questionAnswer, user, cat);
-            
         }
         public List<QuestionCategory>? GetAllCategories()
         {

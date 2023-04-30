@@ -27,10 +27,15 @@ namespace Chad_GPT_Repository
         }
         public QuestionAnswer InsertQuestionAnswer(QuestionAnswer questionAnswer, User user, QuestionCategory cat)
         {
-            User userToAdd = _db.Users.FirstOrDefault(user => user.Id == user.Id);
-            QuestionCategory catFromDb = _db.Categories.FirstOrDefault(x => x.Id == cat.Id);
+            int userId = user.Id;
+            int catId = cat.Id;
+            
+            User userToAdd = _db.Users
+                .FirstOrDefault(user => user.Id == userId);
+            QuestionCategory catFromDb = _db.Categories
+                .FirstOrDefault(cat => cat.Id == catId);
             questionAnswer.Poster = userToAdd;
-            questionAnswer.CategoryCategory = catFromDb;
+            questionAnswer.Category = catFromDb;
             _db.QuestionAnswers.Add(questionAnswer);
             _db.SaveChanges();
             return _db.QuestionAnswers

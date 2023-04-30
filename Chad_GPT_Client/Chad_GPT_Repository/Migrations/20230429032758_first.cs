@@ -95,15 +95,14 @@ namespace Chad_GPT_Repository.Migrations
                     Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CategoryCategoryId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_QuestionAnswers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_QuestionAnswers_Categories_CategoryCategoryId",
-                        column: x => x.CategoryCategoryId,
+                        name: "FK_QuestionAnswers_Categories_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -126,9 +125,9 @@ namespace Chad_GPT_Repository.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuestionAnswers_CategoryCategoryId",
+                name: "IX_QuestionAnswers_CategoryId",
                 table: "QuestionAnswers",
-                column: "CategoryCategoryId");
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionAnswers_UserId",

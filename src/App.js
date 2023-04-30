@@ -8,7 +8,7 @@ import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
 import Images from './components/Images'
-import { useCookies } from 'react-cookie';
+import { useCookies, CookiesProvider } from 'react-cookie';
 const uri = 'https://localhost:7185/api/ChadGPT/AskChadGPT/';
 const categoryUri = 'https://localhost:7185/api/QandA/';
 const getAllQuestionsUri = 'https://localhost:7185/api/QandA/GetAllQuestions';
@@ -16,36 +16,49 @@ const getAllQuestionsUri = 'https://localhost:7185/api/QandA/GetAllQuestions';
 function App() {
   const [answers, setAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [cookie, setCookie] = useCookies(["categoryList"]);
-  const [questionsCookie, setQuestionsCookie] = useCookies(["questions"])
+  const [cookie, setCookie, removeCookie] = useCookies(["categoryList"]);
+  const [userCookie, setUserCookie] = useCookies(["user"])
+  const [questionsCookie, setQuestionsCookie, removeQuestions] = useCookies()
   const fetchSomeData = async() => {
 
       const response = await fetch(categoryUri + 'GetQuestionCategories',{})
       const json = await response.json();
       if(json) {
-        setCookie('categoryList', json, {path: '/'})
+        cookieChange(json, 'categoryList')
       }
-      console.log(cookie["categoryList"])
-      console.log(cookie["user"])
-      
+      console.log(cookie.categoryList)
+    }
+    const cookieChange = async(data, cookieName) =>{
+      return await setCookie(
+        cookieName,
+        data,
+        { path: '/'}
+      )
     }
   useEffect(()=>{
-    fetchSomeData();
-    fetchAllAnswers()
+    
+    //fetchSomeData();
+    fetchAllAnswers();
     return ()=>{}
   },[])
+  // useEffect(()=>{
 
+
+
+  //   return ()=>{}
+  // },[])
   const fetchAllAnswers = async() => {
     const response =  await fetch(getAllQuestionsUri,{});
     const json = await response.json();
-    if(json) {
-      setQuestionsCookie(
-        'questions',
-        json,
-        {path: '/'}
+    if(json){
+      
+      setAnswers(
+        json
       )
+      cookieChange(json,'questions')
     }
-    console.log(questionsCookie.questions);
+    console.log(answers)
+    console.log(cookie["questions"])
   }
   // const fetchAnswer = async() => {
   //   setIsLoading(true);
@@ -58,7 +71,7 @@ function App() {
   //       question: question,
   //       answer: m}
   //   })
-    
+
   //   setAnswers(newAnswer)
   //   if(answersArray){
   //     answersArray.concat(answers)
@@ -73,7 +86,7 @@ function App() {
   // }];
     return (
         <BrowserRouter>
-          
+          <CookiesProvider>
           <Routes>
             <Route path="/" element={<Header/>}/>
             <Route path="/login" element={<Login/>}/>
@@ -81,12 +94,12 @@ function App() {
             <Route path="/form" element={<Form/>}/>
             <Route path="/images" element={<Images/>}/>
           </Routes>
-          
-        
-        
-      
+
+          </CookiesProvider>
+
+
           </BrowserRouter>
-        
+
       // <section>
       //   < button onClick={fetchAnswer} >Answers</button>
       // </section>
@@ -94,13 +107,13 @@ function App() {
       //   {!isLoading && <AnswerList answers={answers} />}
       //   {isLoading && <div>loading...</div>}
       // </section>
-      
-      
+
+
       // <React.Fragment>
     // </React.Fragment>
     );
-  
-  
+
+
 }
 
 export default App;

@@ -92,9 +92,6 @@ namespace Chad_GPT_Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CategoryCategoryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -110,7 +107,7 @@ namespace Chad_GPT_Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
 
@@ -187,9 +184,9 @@ namespace Chad_GPT_Repository.Migrations
 
             modelBuilder.Entity("Chad_GPT_Models.DBModels.QuestionAnswer", b =>
                 {
-                    b.HasOne("Chad_GPT_Models.DBModels.QuestionCategory", "CategoryCategory")
+                    b.HasOne("Chad_GPT_Models.DBModels.QuestionCategory", "Category")
                         .WithMany("Answers")
-                        .HasForeignKey("CategoryCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -199,7 +196,7 @@ namespace Chad_GPT_Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CategoryCategory");
+                    b.Navigation("Category");
 
                     b.Navigation("Poster");
                 });
